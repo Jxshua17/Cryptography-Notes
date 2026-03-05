@@ -1,6 +1,7 @@
 package SubstitutionCipher;
 
 import java.io.CharArrayReader;
+import java.io.StringReader;
 import java.util.HashMap;
 
 public class SubstitutionCipher {
@@ -31,7 +32,7 @@ public class SubstitutionCipher {
         alphabets.put('f', 21);
         alphabets.put('g', 22);
         alphabets.put('h', 23);
-        alphabets.put('i', 24); //this value id for either i/j
+        alphabets.put('i', 24); //this value is for either i or j
         alphabets.put('k', 25);
         alphabets.put('l', 31);
         alphabets.put('m', 32);
@@ -64,6 +65,53 @@ public class SubstitutionCipher {
 
 
         return ciphertext.toString();
+    }
+
+    public static String decryption(String ciphertext){
+        StringBuilder plaintext = new StringBuilder();
+        StringBuilder number = new StringBuilder();
+
+        HashMap<Integer, Character> decrypt = new HashMap<>();
+        decrypt.put(11, 'a');
+        decrypt.put(12, 'b');
+        decrypt.put(13, 'c');
+        decrypt.put(14, 'd');
+        decrypt.put(15, 'e');
+        decrypt.put(21, 'f');
+        decrypt.put(22, 'g');
+        decrypt.put(23, 'h');
+        decrypt.put(24, 'i'); //this key-value pair also uses j. decrypting can be funny because you might see a j where you expect an i.
+        decrypt.put(25, 'k');
+        decrypt.put(31, 'l');
+        decrypt.put(32, 'm');
+        decrypt.put(33, 'n');
+        decrypt.put(34, 'o');
+        decrypt.put(35, 'p');
+        decrypt.put(41, 'q');
+        decrypt.put(42, 'r');
+        decrypt.put(43, 's');
+        decrypt.put(44, 't');
+        decrypt.put(45, 'u');
+        decrypt.put(51, 'v');
+        decrypt.put(52, 'w');
+        decrypt.put(53, 'x');
+        decrypt.put(54, 'y');
+        decrypt.put(55, 'z');
+
+        for (int i=0;i<ciphertext.length();i++){
+            if (ciphertext.charAt(i) == ' '){
+                plaintext.append(' ');
+            } else {
+                number.append(ciphertext.charAt(i));
+                number.append(ciphertext.charAt(i+1));
+                plaintext.append(decrypt.get(Integer.parseInt(String.valueOf(number))));
+                number.delete(0, 2);
+                i++;
+            }
+        }
+
+
+        return plaintext.toString();
     }
 
     public static void main(String[] args) {
